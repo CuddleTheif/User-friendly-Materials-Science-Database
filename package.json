@@ -1,0 +1,16 @@
+{
+  "name": "MS_Database",
+  "version": "0.0.1",
+  "description": "A user-friendly materials science database",
+  "contributors": [
+    "Andrew Wetmore <awetmore@email.uscb.edu>",
+    "Jason Willis <jw31@email.uscb.edu>"
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "knex": "^0.14.6",
+    "mysql": "^2.15.0"
+  }
+}

@@ -22,15 +22,21 @@
     <table class="table table-sm table-bordered table-hover table-dark">
     	<thead>
     	<tr>
-    		<th>Sample Id</th>
-    		<th>Thickness</th>
+    		<% for (var property in samples[0]) {
+    			if (samples[0].hasOwnProperty(property)) { %>
+    		<th><%=property%></th>
+    		<%	}
+    		   } %>
     	</tr>
     	</thead>
     	<tbody>
     		<% for(var i=0; i<samples.length;i++) { %>
     		<tr>
-    			<td><%=samples[i].sample_id%></td>
-    			<td><%=samples[i].thickness%></td>
+	    		<% for (var property in samples[i]) {
+	    			if (samples[i].hasOwnProperty(property)) { %>
+    			<td><%=samples[i][property]%></td>
+	    		<%	}
+	    		   } %>
     		</tr>
     		<% } %>
     	</tbody>

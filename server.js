@@ -15,8 +15,12 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) => {
 	knex.select().table('samples').then((samples) => {
-		res.render('index', {samples: samples});
+		res.render('table', {samples: samples});
 	});
+});
+
+app.post('/updatedb', (req, res) => {
+	
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

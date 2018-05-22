@@ -15,7 +15,6 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) => {
 	knex.select().table('samples').then((samples) => {
-		console.log(samples);
 		res.render('index', {samples: samples});
 	});
 });

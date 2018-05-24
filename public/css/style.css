@@ -1,0 +1,11 @@
+.piechart{
+	width: 500px;
+	min-width: 500px;
+	max-width: 500px;
+}
+
+@media screen and (max-width: 576px){
+	.piechart{
+	margin-left: -100px;
+	}
+}

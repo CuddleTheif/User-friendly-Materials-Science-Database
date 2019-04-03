@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+
+<title>Sign Up</title>
+</head>
+
+<body>
+	<div class="p-5">
+		<h2>Sign Up</h2>
+		<form class="needs-validation" data-toggle="validator" role="form" novalidate="true">
+        <div class="form-group has-error has-danger">
+          <label for="inputName" class="control-label">Name</label>
+          <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required="">
+        </div>
+        <div class="form-group has-feedback has-error has-danger">
+          <label for="inputTwitter" class="control-label">Twitter</label>
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required="">
+          </div>
+          <span class="glyphicon form-control-feedback glyphicon-remove" aria-hidden="true"></span>
+          <div class="help-block with-errors"><ul class="list-unstyled"><li>Please fill out this field.</li></ul></div>
+        </div>
+        <div class="form-group has-error has-danger">
+          <label for="inputEmail" class="control-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" required="">
+          <div class="help-block with-errors"><ul class="list-unstyled"><li>Bruh, that email address is invalid</li></ul></div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="control-label">Password</label>
+          <div class="form-inline row">
+            <div class="form-group col-sm-6 has-error has-danger">
+              <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required="">
+              <div class="help-block">Minimum of 6 characters</div>
+            </div>
+            <div class="form-group col-sm-6 has-error has-danger">
+              <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required="">
+              <div class="help-block with-errors"><ul class="list-unstyled"><li>Please fill out this field.</li></ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group has-error has-danger">
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required="">
+              Boxers
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required="">
+              Briefs
+            </label>
+          </div>
+        </div>
+        <div class="form-group has-error has-danger">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="terms" data-error="Before you wreck yourself" required="">
+              Check yourself
+            </label>
+            <div class="help-block with-errors"><ul class="list-unstyled"><li>Before you wreck yourself</li></ul></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary disabled">Submit</button>
+        </div>
+      </form>
+	</div>
+	<!-- SCRIPTS -->
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<!-- Chart JavaScript -->
+	<script src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
+  <meta charset="utf-8">
+	<!--  Personal JS  -->
+	<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+</body>
+</html>

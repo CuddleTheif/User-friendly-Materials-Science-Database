@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+
+<title>Material Display</title>
+</head>
+
+<body>
+	<div class="p-5">
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse"
+					data-target="#properties" aria-expanded="true"
+					aria-control="collapseProperties"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">[Material
+					Name]</button>
+			</div>
+		</div>
+		<div class="collapse show" id="properties">
+		<% if(sample.thickness){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold ">Thickness</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.thickness%></div>
+			</div>
+		<% } %>
+		<% if(sample.peak_count){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Peak
+					Count</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.peak_count%></div>
+			</div>
+		<% } %>
+		<% if(sample.opt_direct_bandgap_ev){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div
+					class="col-sm-4 offset-1 text-nowrap font-weight-bold text-nowrap">Opt
+					Direct Bandgap EV</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate text-truncate"><%=sample.opt_direct_bandgap_ev%></div>
+			</div>
+		<% } %>
+		<% if(sample.opt_average_vis_trans){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Opt
+					Average Vis Trans</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.opt_average_vis_trans%></div>
+			</div>
+		<% } %>
+		<% if(elements.length>0){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Elements</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=elements[0].element_name%><% for(var i=1;i<elements.length;i++){ %>, <%=elements[i].element_name%><% } %></div>
+			</div>
+		<% } %>
+		</div>
+		<% if(compounds.length>0){ %>
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse"
+					data-target="#compoundData" aria-expanded="true"
+					aria-control="collapseCompoundData"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Compounds</button>
+			</div>
+		</div>
+		<div class="collapse show" id="compoundData">
+			<div class="row">
+				<div class="offset-sm- col chart p-3 h-5">
+					<canvas id="compoundPieChart"></canvas>
+				</div>
+			</div>
+		</div>
+		<% } %>
+		<% if(fpm.length>0){ %>
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse" data-target="#fpmData"
+					aria-expanded="true" aria-control="collapseFpmData"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Four-Point
+					Probe Measurements</button>
+			</div>
+		</div>
+		<div class="collapse hide" id="fpmData">
+			<div class="row">
+				<div class="offset-sm- col chart p-3">
+					<canvas id="fpmLineChart"></canvas>
+				</div>
+			</div>
+		<% if(sample.resistivity){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Resistivity</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.resistivity%></div>
+			</div>
+		<% } %>
+		<% if(sample.conductivity){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Conductivity</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.conductivity%></div>
+			</div>
+		<% } %>
+		<% if(sample.standard_deviation){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Standard
+					Deviation</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.standard_deviation%></div>
+			</div>
+		<% } %>
+		<% if(sample.sheet_resistance){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Sheet
+					Resistance</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.standard_deviation%></div>
+			</div>
+		<% } %>
+		</div>
+		<% } %>
+		<% if(deposition_compounds.length>0){ %>
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse"
+					data-target="#depositionData" aria-expanded="true"
+					aria-control="collapseDepostionData"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Deposition</button>
+			</div>
+		</div>
+		<div class="collapse hide" id="depositionData">
+		<% if(sample.sample_time_min){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Sample
+					Time Min</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.sample_time_min%></div>
+			</div>
+		<% } %>
+		<% if(sample.base_pressure_mtorr){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Base
+					Pressure Mtorr</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.base_pressure_mtorr%></div>
+			</div>
+		<% } %>
+		<% if(sample.growth_pressure_mtorr){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Growth
+					Pressure Mtorr</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.growth_pressure_mtorr%></div>
+			</div>
+		<% } %>
+		<% if(sample.target_pulses){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Target
+					Pulses</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.target_pulses%></div>
+			</div>
+		<% } %>
+		<% if(sample.rep_rate){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Rep
+					Rate</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.rep_rate%></div>
+			</div>
+		<% } %>
+		<% if(sample.energy){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Energy</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.energy%></div>
+			</div>
+		<% } %>
+		<% if(sample.cycles){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Cycles</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.cycles%></div>
+			</div>
+		<% } %>
+		<% if(sample.ts_distance){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">TS
+					Distance</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.ts_distance%></div>
+			</div>
+		<% } %>
+		<% if(sample.initial_temp_c){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Initial
+					Temp c</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.initial_temp_c%></div>
+			</div>
+		<% } %>
+		<% if(sample.substrate_material){ %>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2">
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold">Substrate
+					Material</div>
+				<div class="col-md offset-3 offset-md-0 text-truncate"><%=sample.substrate_material%></div>
+			</div>
+		<% } %>
+			<div class="row">
+				<div class="col ml-5 mr-5">
+					<button type="button" data-toggle="collapse"
+						data-target="#depoCompoundsData" aria-expanded="true"
+						aria-control="collapseDepoCompoundData"
+						class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Deposition
+						Compounds' Power</button>
+				</div>
+			</div>
+			<div class="collapse show ml-5 mr-5" id="depoCompoundsData">
+			<% for(var i=0;i<deposition_compounds.length;i++) { %>
+				<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+					<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"><%=deposition_compounds[i].compound_name%></div>
+					<div class="col-md offset-3 offset-md-0 text-truncate"><%=deposition_compounds[i].power || 0%></div>
+				</div>
+			<% } %>
+			</div>
+		<% } %>
+		<% if(gasses.length>0){ %>
+			<div class="row">
+				<div class="col ml-5 mr-5">
+					<button type="button" data-toggle="collapse" data-target="#gasData"
+						aria-expanded="true" aria-control="collapseGasData"
+						class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Deposition
+						Gasses' Flow</button>
+				</div>
+			</div>
+			<div class="collapse show ml-5 mr-5" id="gasData">
+			<% for(var i=0;i<gasses.length;i++) { %>
+				<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+					<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"><%=gasses[i].gas_name%></div>
+					<div class="col-md offset-3 offset-md-0 text-truncate"><%=gasses[i].gas_flow_scm || 0%></div>
+				</div>
+			<% } %>
+			</div>
+		<% } %>
+		</div>
+	</div>
+	<!-- SCRIPTS -->
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<!-- Chart JavaScript -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<!--  Graphs JS  -->
+	<script>
+		//pie
+		<% if(compounds.length>0){ %>
+		var ctxP = document.getElementById("compoundPieChart").getContext('2d');
+		var myPieChart = new Chart(ctxP, {
+			type : 'pie',
+			data : {
+				labels : [ '<%=compounds[0].compound_name%>'<% for(var i=1;i<compounds.length;i++){ %>, '<%=compounds[i].compound_name%>'<% } %> ],
+				datasets : [ {
+					data : [ <%=compounds[0].concentration%><% for(var i=1;i<compounds.length;i++){ %>, <%=compounds[i].concentration%><% } %> ],
+					backgroundColor : [ "Blue", "Black", "Grey", "Red" ],
+					hoverBackgroundColor : [ "Blue", "Black", "Grey", "Red" ]
+				} ]
+			},
+			options : {
+				responsive : true,
+				legend: {
+				    onClick: function (e) {
+				        e.stopPropagation();
+				    }
+				}
+			}
+	
+		});
+		<% } %>
+	
+		// line
+		<% if(fpm.length>0){ %>
+		var ctxL = document.getElementById("fpmLineChart").getContext('2d');
+		var myLineChart = new Chart(ctxL, {
+			type : 'line',
+			data : {
+				// x = current (amps), y = voltage (volts)
+				labels : [ <%=fpm[0].voltage || 0%><% for(var i=1;i<fpm.length;i++){ %>, <%=fpm[i].voltage || 0%><% } %>  ],
+				datasets : [ {
+					label : "",
+					// xAxisID : "current(amps)",
+					// yAxisID : "voltage(volts)",
+					backgroundColor : "rgba(255,255,255,0)",
+					borderWidth : 2,
+					borderColor : "rgba(0,0,0,1)",
+					pointBackgroundColor : "rgba(0,0,0,1)",
+					pointBorderColor : "#fff",
+					pointBorderWidth : 1,
+					pointRadius : 5,
+					pointHoverBackgroundColor : "#fff",
+					pointHoverBorderColor : "rgba(220,220,220,1)",
+					data : [ <%=fpm[0].current_amps || 0%><% for(var i=1;i<fpm.length;i++){ %>, <%=fpm[i].current_amps || 0%><% } %> ]
+				} ],
+			},
+			options : {
+				responsive : true,
+				legend : {
+					display : false
+				},
+				scales : {
+					xAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : "current(amps)"
+						}
+					} ],
+					yAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : "voltage(volts)"
+						}
+					} ]
+				}
+			}
+		});
+		<% } %>
+	</script>
+</body>
+</html>

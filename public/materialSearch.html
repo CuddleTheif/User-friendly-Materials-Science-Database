@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+
+<title>Material Search</title>
+</head>
+
+<body>
+	<div class="p-5 row justify-content-between">
+		<div class="col">
+			<h2>Material Search</h2>
+		</div>
+		<!-- Start Log In Dropbox -->
+		<div class="dropleft p-2 col d-flex flex-row-reverse" id="loginDropParent">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				id="loginDropdown" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">Log In / Create Account</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<div id="loginCarousel" class="carousel slide" data-ride="carousel">
+ 	 				<div class="carousel-inner">
+ 	 					<div class="carousel-item active">
+							<form class="px-4 py-3" action="/singin" method="post" onsubmit="signin(this, e);" novalidate>
+								<div class="form-group">
+									<label for="exampleDropdownFormEmail1">Email address</label> <input
+										type="email" class="form-control" id="exampleDropdownFormEmail1"
+										placeholder="email@example.com" name="email">
+								</div>
+								<div class="form-group">
+									<label for="exampleDropdownFormPassword1">Password</label> <input
+										type="password" class="form-control"
+										id="exampleDropdownFormPassword1" placeholder="Password" name="password">
+								</div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="dropdownCheck">
+									<label class="form-check-label" for="dropdownCheck">
+										Remember me </label>
+								</div>
+								<button type="submit" class="btn btn-primary">Sign in</button>
+							</form>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" data-slide-to="1" onclick="changeLoginCarousel(this, event);">Don't have an account? Sign up</a>
+							<a class="dropdown-item" href="#" data-slide-to="2" onclick="changeLoginCarousel(this, event);">Forgot password?</a>
+						</div>
+						<div class="carousel-item">
+							<form class="px-4 py-3" data-toggle="validator" role="form" action="/signup" method="post" onsubmit="signin(this, e);" novalidate>
+								<div class="form-group">
+									<label for="inputName" class="control-label">First Name</label> <input
+										type="text" class="form-control" id="inputName" placeholder="John"
+										data-error="This is a required field" required name="name">
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+									<label for="inputName" class="control-label">Last Name</label> <input
+										type="text" class="form-control" id="inputName" placeholder="Smith"
+										data-error="This is a required field" required>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail" class="control-label">Email</label> <input
+										type="email" class="form-control" id="inputEmail"
+										placeholder="Email@example.com"
+										data-error="email address is invalid" required name="email">
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword" class="control-label">Password</label>
+									<div class="form-inline row">
+										<div class="form-group col-sm-6">
+											<input type="password" data-minlength="6" class="form-control"
+												id="inputPassword" placeholder="Password"
+												data-error="Minimum of 6 characters" required name="password">
+												<div class="help-block with-errors"></div>
+										</div>
+										<div class="form-group col-sm-6">
+											<input type="password" class="form-control"
+												id="inputPasswordConfirm" data-match="#inputPassword"
+												data-match-error="Passwords don't match" placeholder="Confirm"
+												required>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="checkbox">
+										<label> <input type="checkbox"> Keep me signed in
+										</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
+						</div>
+						<div class="carousel-item">
+							<form class="px-4 py-3" data-toggle="validator" role="form" action="/resetPassword" method="post" onsubmit="signin(this, e);" novalidate>
+								<div class="form-group">
+									<label for="inputEmail" class="control-label">Email</label> <input
+										type="email" class="form-control" id="inputEmail"
+										placeholder="Email@example.com"
+										data-error="email address is invalid" required name="email">
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn btn-primary">Reset Password</button>
+								</div>
+							</form>
+							<!-- Modal -->
+							<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Link sent</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">We've sent a link to reset your
+											password to your email address</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Log In Dropbox -->
+	</div>
+
+	<form class="needs-validation" novalidate name="materialForm"
+		onsubmit="validateMaterial(event);">
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse"
+					data-target="#properties" aria-expanded="true"
+					aria-control="collapseProperties"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Properties</button>
+			</div>
+		</div>
+		<div class="collapse show" id="properties">
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col">
+					<div class="dropdown p-2">
+						<button class="btn btn-primary dropdown-toggle" type="button"
+							id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">Add Search Property</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="addField(this);">Thickness</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">PeakCount</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Opt Direct Bandgap EV</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Opt Average Vis Trans</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Thickness</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="thicknessMin" placeholder="Thickness Value"> <input
+						class="text-truncate form-control" type="text" name="thicknessMax"
+						placeholder="Thickness Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Peak
+					Count</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="peakCountMin" placeholder="Peak Count Value"> <input
+						class="text-truncate form-control" type="text" name="peakCountMax"
+						placeholder="Peak Count Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Opt
+					Direct Bandgap EV</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="optDirectBandgapMin"
+						placeholder="Opt Direct Bandgap EV Value"> <input
+						class="text-truncate form-control" type="text"
+						name="optDirectBandgapMax"
+						placeholder="Opt Direct Bandgap EV Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Opt
+					Average Vis Trans</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="optAverageVisTransMin"
+						placeholder="Opt Average Vis Trans Value"> <input
+						class="text-truncate form-control" type="text"
+						name="optAverageVisTransMax"
+						placeholder="Opt Average Vis Trans Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row-sm-4 text-nowrap font-weight-bold text-center"
+				data-toggle="tooltip"
+				title="This will explain what it is in a later version">Elements</div>
+
+
+			<!-- Start Periodic Table -->
+			<div id="periodicTable" class="container" style="min-width: 992px;">
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false" data-toggle="button"
+						aria-pressed="false">H</div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white ml-2" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">He</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Li</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Be</div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white ml-2" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">B</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">C</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">N</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">O</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">F</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ne</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Na</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Mg</div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white ml-2" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Al</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Si</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">P</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">S</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cl</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ar</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">K</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ca</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sc</div>
+					<div class="col ml-2 btn btn-primary border border-dark rounded-0">Ti</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">V</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cr</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Mn</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Fe</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Co</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ni</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cu</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Zn</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ga</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ge</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">As</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Se</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Br</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Kr</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Rb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sr</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Y</div>
+					<div class="col ml-2 btn btn-primary border border-dark rounded-0">Zr</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Nb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Mo</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Tc</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ru</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Rh</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pd</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ag</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cd</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">In</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sn</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Te</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">I</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Xe</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cs</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ba</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">La</div>
+					<div class="col ml-2 btn btn-primary border border-dark rounded-0">Hf</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ta</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">W</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Re</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Os</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ir</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pt</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Au</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Hg</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Tl</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Bi</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Po</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">At</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Rn</div>
+				</div>
+				<div class="row">
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Fr</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ra</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ac</div>
+					<div class="col ml-2 btn btn-primary border border-dark rounded-0">Rf</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Db</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sg</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Bh</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Hs</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Mt</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ds</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Rg</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cn</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Nh</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Fl</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Mc</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Lv</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ts</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Og</div>
+				</div>
+				<div class="row mt-1">
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn btn-primary border border-dark rounded-0 ml-2">Ce</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pr</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Nd</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pm</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Sm</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Eu</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Gd</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Tb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Dy</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Ho</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Er</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Tm</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Yb</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Lu</div>
+					<div class="col btn text-white" disabled></div>
+				</div>
+				<div class="row mb-1">
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn text-white" disabled></div>
+					<div class="col btn btn-primary border border-dark rounded-0 ml-2">Th</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pa</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">U</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Np</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Pu</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Am</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cm</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Bk</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Cf</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Es</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Fm</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Md</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">No</div>
+					<div class="col btn btn-primary border border-dark rounded-0"
+						data-toggle="button" aria-pressed="false">Lr</div>
+					<div class="col btn text-white" disabled></div>
+				</div>
+			</div>
+			<!-- End Periodic Table -->
+
+
+		</div>
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse" data-target="#fpmData"
+					aria-expanded="true" aria-control="collapseFpmData"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Four-Point
+					Probe Measurements</button>
+			</div>
+		</div>
+		<div class="collapse hide" id="fpmData">
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col">
+					<div class="dropdown p-2">
+						<button class="btn btn-primary dropdown-toggle" type="button"
+							id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">Add FPM Search Property</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="addField(this);">Resistivity</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Conductivity</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Standard Deviation</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Sheet Resistance</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Resistivity</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="resistivityMin" placeholder="Resistivity Value"> <input
+						class="text-truncate form-control" type="text"
+						name="resistivityMax" placeholder="Resistivity Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Conductivity</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="conductivityMin" placeholder="Conductivity Value"> <input
+						class="text-truncate form-control" type="text"
+						name="conductivityMax" placeholder="Conductivity Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Standard
+					Deviation</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="standardDeviationMin" placeholder="Standard Deviation Value">
+					<input class="text-truncate form-control" type="text"
+						name="standardDeviationMax" placeholder="Standard Deviation Value"
+						hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Sheet
+					Resistance</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="sheetResistanceMin" placeholder="Sheet Resistance Value">
+					<input class="text-truncate form-control" type="text"
+						name="sheetResistanceMax" placeholder="Sheet Resistance Value"
+						hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button type="button" data-toggle="collapse"
+					data-target="#depositionData" aria-expanded="true"
+					aria-control="collapseDepostionData"
+					class="btn btn-primary btn-lg btn-block text-left border border-dark rounded-0 text-truncate ">Deposition</button>
+			</div>
+		</div>
+		<div class="collapse hide" id="depositionData">
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark">
+				<div class="col">
+					<div class="dropdown p-2">
+						<button class="btn btn-primary dropdown-toggle" type="button"
+							id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">Add Deposition Search Property</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="addField(this);">Sample Time Min</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Base Pressure Mtorr</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Growth Pressure Mtorr</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Target Pulses</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Rep Rate</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Energy</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Cycles</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">TS Distance</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Initial Temp C</button>
+							<button class="dropdown-item" type="button"
+								onclick="addField(this);">Substrate Material</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Sample
+					Time Min</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="sampleTimeMinMin" placeholder="Sample Time Min Value">
+					<input class="text-truncate form-control" type="text"
+						name="sampleTimeMinMax" placeholder="Sample Time Min Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Base
+					Pressure Mtorr</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="basePressureMtorrMin"
+						placeholder="Base Pressure Mtorr Value"> <input
+						class="text-truncate form-control" type="text"
+						name="basePressureMtorrMax"
+						placeholder="Base Pressure Mtorr Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Growth
+					Pressure Mtorr</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="growthPressureMtorrMin"
+						placeholder="Growth Pressure Mtorr Value"> <input
+						class="text-truncate form-control" type="text"
+						name="growthPressureMtorrMax"
+						placeholder="Growth Pressure Mtorr Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Target
+					Pulses</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="targetPulsesMin" placeholder="Target Pulses Value">
+					<input class="text-truncate form-control" type="text"
+						name="targetPulsesMax" placeholder="Target Pulses Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Rep
+					Rate</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="repRateMin" placeholder="Rep Rate Value"> <input
+						class="text-truncate form-control" type="text" name="repRateMax"
+						placeholder="Rep Rate Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Energy</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="energyMin" placeholder="Energy Value"> <input
+						class="text-truncate form-control" type="text" name="energyMax"
+						placeholder="Energy Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Cycles</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="cyclesMin" placeholder="Cycles Value"> <input
+						class="text-truncate form-control" type="text" name="cyclesMax"
+						placeholder="Cycles Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">TS
+					Distance</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="tSDistanceMin" placeholder="TS Distance Value"> <input
+						class="text-truncate form-control" type="text"
+						name="tSDistanceMax" placeholder="TS Distance Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2 border-bottom border-dark" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Initial
+					Temp c</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="initialTempMin" placeholder="Initial Temp Value"> <input
+						class="text-truncate form-control" type="text"
+						name="initialTempMax" placeholder="Initial Temp Value" hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+			<div class="row ml-2 mr-2 pt-md-2 pb-md-2" hidden>
+				<div class="col-sm-4 offset-1 text-nowrap font-weight-bold"
+					data-toggle="tooltip"
+					title="This will explain what it is in a later version">Substrate
+					Material</div>
+				<div class="input-group col-md offset-3 offset-md-0 ">
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-secondary dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">=</button>
+						<div class="dropdown-menu">
+							<button class="dropdown-item active" type="button"
+								onclick="equalsButton(this);">=</button>
+							<button class="dropdown-item" type="button"
+								onclick="lessThanButton(this);"><=</button>
+							<button class="dropdown-item" type="button"
+								onclick="greaterThanButton(this);">>=</button>
+							<button class="dropdown-item" type="button"
+								onclick="betweenButton(this);">Between</button>
+							<button class="dropdown-item" type="button"
+								onclick="noneButton(this);">None</button>
+						</div>
+					</div>
+					<input class="text-truncate form-control" type="text"
+						name="substrateMaterialMin" placeholder="Substrate Material Value">
+					<input class="text-truncate form-control" type="text"
+						name="substrateMaterialMax" placeholder="Substrate Material Value"
+						hidden>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary text-danger"
+							type="button" aria-label="Close" onclick="removeField(this);">X</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row p-5">
+			<div class="col offset-sm-1 offset-md-3 offset-lg-5">
+				<button
+					class="btn bg-primary text-white btn-outline-secondary rounded-0"
+					type="submit">Search</button>
+			</div>
+
+			<!--
+			<div class="modal fade" id="notLoggedInError" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Error</h4>
+						</div>
+						<div class="modal-body">
+							<p>You must be logged in to create new material</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary rounded-0 offset-2 mt-2"
+				data-toggle="modal" data-target="#notLoggedInError">Create</button>
+			-->
+		</div>
+	</form>
+
+	</div>
+	<!-- SCRIPTS -->
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<script
+		src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
+	<!--  Personal JS  -->
+	<script type="text/javascript" src="js/materialSearch.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+</body>
+</html>

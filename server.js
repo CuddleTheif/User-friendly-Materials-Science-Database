@@ -7,6 +7,9 @@ var io = require('socket.io')(server);
 const htem = require('./htem.js');
 const crypto = require('crypto');
 const salt = '213mkfdsanj432';
+var port = Number(process.argv[2]);
+if(!port)
+  port = 80;
 
 // Setup the connection to the mySQL database
 const knex = require('knex')({
@@ -188,7 +191,7 @@ app.post('/signup', (req, res) => {
 });
 
 // Start the server
-server.listen(3000, () => console.log('Example app listening on port 3000!'));
+server.listen(port, () => console.log('Example app listening on port '+port+'!'));
 /*
 htem.test(knex, (error) => {
 	if(error)

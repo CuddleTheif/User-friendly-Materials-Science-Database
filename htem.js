@@ -1,5 +1,8 @@
 (function() {
 	
+	// Limit sample count
+	var maxSamples = 500;
+
 	// Import the needed library
 	const request = require('request');
 
@@ -47,11 +50,11 @@
 					libraries[libCount].samples = samples;
 				
 				// Check if more libraries to load
-				if(++libCount>=500)//libraries.length)
-					callback(null, libraries.slice(0, 500));//libraries);
+				if(++libCount>= (maxSamples ? maxSamples : libraries.length))
+					callback(null, (maxSamples ? libraries.slice(0, maxSamples) : libraries));
 				else{
 					if(progress)
-						progress(libCount+1, 500, "Loading Library ");//libraries.length, "Loading Library ");
+						progress(libCount+1, libraries.length, "Loading Library ");//500, "Loading Library ");
 					getLibrarySamples(libraries[libCount].id, getLibSamples, subprogress);
 				}
 			};
